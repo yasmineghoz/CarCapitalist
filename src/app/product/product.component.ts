@@ -8,15 +8,14 @@ import { Product } from '../world';
 })
 export class ProductComponent implements OnInit {
 
+  product: Product;
+  @Input()
+  set prod(value: Product) {
+    this.product = value;
+  }
+
   constructor() { }
 
   ngOnInit() {
   }
-
-  product : Product;
-  @Input()
-  set prod(value: Product) {
-    this.product = value ;
-  }
-  
 }
