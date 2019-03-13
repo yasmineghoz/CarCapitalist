@@ -6,6 +6,7 @@ import { ProductComponent } from './product/product.component';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RestserviceService } from './restservice.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [RestserviceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,7 +7,7 @@ export class RestserviceService {
 
   constructor(private http: HttpClient) { }
 
-  server = 'http://localhost:8080/adventureISIS/';
+  server = 'http://localhost:8080/adventureisis/';
 
   // tslint:disable-next-line:variable-name
   _user = '';
@@ -26,7 +26,7 @@ export class RestserviceService {
   }
 
   getWorld(): Promise<World> {
-    return this.http.get(this.server + 'webresources/generic/world')
+    return this.http.get(this.server + 'generic/world')
       .toPromise()
       .catch(this.handleError);
   }
