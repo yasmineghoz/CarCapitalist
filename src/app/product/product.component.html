@@ -1,3 +1,12 @@
-<p>
-  product works!
-</p>
+<div>
+    <img class="logoproduit" [attr.src]="this.getImage()" width="15%" />
+    <div class="nomproduit">{{product.name}}</div>
+    <div>
+      mettre quantite produit acheté
+    </div>
+    <div>
+      <span class="quantite">{{product.quantite}}</span>
+      <span class="coutproduit">{{product.cout}}</span>
+    </div>
+    <div class="vitesseproduit">{{product.vitesse}}</div>
+</div>

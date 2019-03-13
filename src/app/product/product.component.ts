@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../world';
+import { apiUrl } from './api';
 
 @Component({
   selector: 'app-product',
@@ -15,6 +16,10 @@ export class ProductComponent implements OnInit {
   }
 
   constructor() { }
+
+  getImage() {
+    return apiUrl + this.product.logo;
+  }
 
   ngOnInit() {
   }

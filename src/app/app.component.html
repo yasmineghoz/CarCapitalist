@@ -5,14 +5,19 @@
   </h1>
   <img [attr.src]="server+world.logo" />
   <span id="worldname"> {{world.name}} </span>
-  <span id="worldmoney"> {{world.money}} </span>
+  <span id="worldmoney"> {{world.money | bigvalue}} </span>
   <span id="worldscore"> {{world.score}} </span>
-  <span id="worldproducts"> {{world.products}} </span>
 
-  <app-product [prod]="world.products.product[0]" class="product col-md-6"></app-product>
+  <div *ngFor="let product of this.world.products.product">
+    <app-product [prod]="product" class="product col-md-6"></app-product>
+  </div>
 
-  <span id="worldallunlocks"> {{world.allunlocks}} </span>
-  <span id="worldupgrades"> {{world.upgrades}} </span>
-  <span id="worldangel"> {{world.angelupgrades}} </span>
+  <div class="button">
+    <button>Unlocks</button>
+    <button>Cash Upgrades</button>
+    <button>Angel Upgrades</button>
+    <button>Managers</button>
+    <button>Investors</button>
 </div>
 
+</div>

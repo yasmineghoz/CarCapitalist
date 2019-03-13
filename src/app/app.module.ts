@@ -7,11 +7,13 @@ import { ProductComponent } from './product/product.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RestserviceService } from './restservice.service';
+import { BigvaluePipe } from './bigvalue.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent
+    ProductComponent,
+    BigvaluePipe
   ],
   imports: [
     BrowserModule,

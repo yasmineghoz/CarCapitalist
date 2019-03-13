@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+.logoproduit{
+    position: absolute;
+    left: 10px;
+}
+
+.nomproduit {
+    font-style: italic;
+    position: absolute;
+    left: 20px;
+    top: 70px;
+}
+
+.quantite {
+    position: absolute;
+    left: 150px;
+    background-color: darkgrey;
+    width: 200px;
+}
+
+.coutproduit{
+    position: absolute;
+    right: 150px;
+    background-color: darkgray;
+    width: 200px;
+}
+
+.vitesseproduit {
+    position: absolute;
+    top: 70px;
+    left: 150px;
+
+}
+
+.button{
+    position: absolute;
+    bottom: 10px;
+}
