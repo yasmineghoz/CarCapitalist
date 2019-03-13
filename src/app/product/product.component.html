@@ -1,12 +1,17 @@
 <div>
-    <img class="logoproduit" [attr.src]="this.getImage()" width="15%" />
-    <div class="nomproduit">{{product.name}}</div>
-    <div>
-      mettre quantite produit acheté
-    </div>
-    <div>
-      <span class="quantite">{{product.quantite}}</span>
-      <span class="coutproduit">{{product.cout}}</span>
-    </div>
-    <div class="vitesseproduit">{{product.vitesse}}</div>
+<div class="row">
+  <div class="col-md-3">
+    <img [attr.src]="this.getImage()" width="80%" (click)="startFabrication()" style="cursor:pointer" />
+    <div class="bg-secondary text-white">{{product.name}} : [{{product.quantite}}]</div>
+  </div>
+  <div class="col-md-5"><br/>
+    Revenu : [{{product.revenu}} €] 
+    <div class="progress" #bar style="height:10%"></div>
+    <div class="bg-warning text-white">Coût : [{{product.cout}} €]</div>
+  </div>
+  <div class="col-md-3"><br/><br/>
+    <div class="bg-secondary text-white" style="height:18.5%">{{product.vitesse}} millisecondes</div> 
+  </div>
+</div>
+  
 </div>
