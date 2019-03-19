@@ -9,7 +9,7 @@
     <div class="bg-info col-md-2 offset-md-5"> Money : [{{world.money | bigvalue}} €]</div>
 
     <div *ngFor="let product of this.world.products.product">
-      <app-product [prod]="product" class="product"></app-product>
+      <app-product [prod]="product" class="product" (notifyProduction)="onProductionDone($event)"></app-product>
     </div>
 
     <div class="buttons">

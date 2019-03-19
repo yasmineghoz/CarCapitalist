@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Product, World } from '../world';
 import { apiUrl } from './api';
 
@@ -24,6 +24,9 @@ export class ProductComponent implements OnInit {
     this.lastupdate = Date.now();
   }
 
+  @Output() 
+  notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
+
   constructor() { }
 
   getImage() {
@@ -36,7 +39,7 @@ export class ProductComponent implements OnInit {
     this.product.timeleft = this.product.vitesse;
   }
 
-  calcScore(){
+  calcScore() : void {
     let now = Date.now();
     let elapseTime = now - this.lastupdate;
     this.lastupdate = now;
@@ -47,8 +50,10 @@ export class ProductComponent implements OnInit {
       if (this.product.timeleft<=0){
         this.product.timeleft = 0;
         this.progressbar.set(0);
+        this.notifyProduction.emit(this.product);
       }
     }
+    // on prévient le composant parent que ce produit a généré son revenu.
   }
 
   ngOnInit() {
@@ -57,6 +62,5 @@ export class ProductComponent implements OnInit {
         '#00ff00'
     });
     setInterval(() => {this.calcScore(); }, 100);
-
   }
 }
