@@ -14,9 +14,23 @@ export class ProductComponent implements OnInit {
 
   product: Product;
   lastupdate: number;
+  _money: number;
+  _qtmulti: string;
 
   @ViewChild('bar') progressBarItem;
   progressbar: any;
+
+  @Input()
+  set qtmulti(value: string) {
+  this._qtmulti = value;
+  if (this._qtmulti && this.product) this.calcMaxCanBuy();
+  }
+
+  @Input()
+  set money(value: number) {
+  this._money = value;
+  if (this._money && this.product) this.calcMaxCanBuy();
+  }
 
   @Input()
   set prod(value: Product) {
@@ -54,6 +68,12 @@ export class ProductComponent implements OnInit {
       }
     }
     // on prévient le composant parent que ce produit a généré son revenu.
+  }
+
+  calcMaxCanBuy(){
+    let qtMax = 0;
+    qtMax = (Math.log(1-(this.money*(1-this.product.croissance))/this.product.revenu))/(Math.log(this.product.croissance))-1;
+    console.log(qtMax);
   }
 
   ngOnInit() {

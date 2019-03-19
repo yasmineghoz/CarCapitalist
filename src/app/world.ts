@@ -35,7 +35,6 @@ export class Product {
     timeleft: number;
     managerUnlocked: boolean;
     palliers: { 'pallier': Pallier[] };
-
 }
 
 export class Pallier {
