@@ -39,5 +39,6 @@ export class ProductComponent implements OnInit {
         '#00ff00'
     });
     this.progressbar.animate(1, { duration: this.product.vitesse });
+    
   }
 }
