@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Product } from '../world';
+import { Product, World } from '../world';
 import { apiUrl } from './api';
 
 declare var require;
@@ -13,6 +13,7 @@ const ProgressBar = require('progressbar.js');
 export class ProductComponent implements OnInit {
 
   product: Product;
+  lastupdate: number;
 
   @ViewChild('bar') progressBarItem;
   progressbar: any;
@@ -20,6 +21,7 @@ export class ProductComponent implements OnInit {
   @Input()
   set prod(value: Product) {
     this.product = value;
+    this.lastupdate = Date.now();
   }
 
   constructor() { }
@@ -31,6 +33,22 @@ export class ProductComponent implements OnInit {
   startFabrication() {
     this.progressbar.set(0);
     this.progressbar.animate(1, { duration: this.product.vitesse });
+    this.product.timeleft = this.product.vitesse;
+  }
+
+  calcScore(){
+    let now = Date.now();
+    let elapseTime = now - this.lastupdate;
+    this.lastupdate = now;
+
+    if (this.product.timeleft != 0){
+      this.product.timeleft= this.product.timeleft - elapseTime ;
+      //console.log(this.product.timeleft);
+      if (this.product.timeleft<=0){
+        this.product.timeleft = 0;
+        this.progressbar.set(0);
+      }
+    }
   }
 
   ngOnInit() {
@@ -38,7 +56,7 @@ export class ProductComponent implements OnInit {
       strokeWidth: 50, color:
         '#00ff00'
     });
-    this.progressbar.animate(1, { duration: this.product.vitesse });
-    
+    setInterval(() => {this.calcScore(); }, 100);
+
   }
 }
