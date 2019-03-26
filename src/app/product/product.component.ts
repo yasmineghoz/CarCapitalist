@@ -89,6 +89,7 @@ export class ProductComponent implements OnInit, OnChanges {
   updateBuy() {
     this.product.quantite += 1;
     this.revenu = this.product.revenu * this.product.quantite;
+    this.product.cout = Math.round(this.product.cout * this.product.croissance);
   }
 
   ngOnInit() {
