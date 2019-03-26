@@ -13,7 +13,6 @@ export class AppComponent {
 
   world: World = new World();
   server: string;
-  product: Product;
 
   constructor(private service: RestserviceService) {
     this.server = service.server;
@@ -27,6 +26,4 @@ export class AppComponent {
     this.world.money = this.world.money + p.revenu * p.quantite;
     this.world.score = this.world.score + p.revenu * p.quantite;
   }
-
- 
 }

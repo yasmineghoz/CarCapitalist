@@ -74,6 +74,7 @@ export class ProductComponent implements OnInit {
     let qtMax = 0;
     qtMax = (Math.log(1-(this.money*(1-this.product.croissance))/this.product.revenu))/(Math.log(this.product.croissance))-1;
     console.log(qtMax);
+    return qtMax;
   }
 
   ngOnInit() {
