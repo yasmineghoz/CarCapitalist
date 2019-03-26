@@ -28,19 +28,18 @@ export class AppComponent {
   }
 
   buyRate() {
-    let text = document.getElementById('buyBtn').innerHTML;
-    switch (text) {
+    switch (document.getElementById('buyBtn').innerHTML) {
       case 'Buy x 1':
-        text = 'Buy x 10';
+        document.getElementById('buyBtn').innerHTML = 'Buy x 10';
         break;
       case 'Buy x 10':
-        text = 'Buy x 100';
+        document.getElementById('buyBtn').innerHTML = 'Buy x 100';
         break;
       case 'Buy x 100':
-        text = 'Buy Max';
+        document.getElementById('buyBtn').innerHTML = 'Buy Max';
         break;
       case 'Buy Max':
-        text = 'Buy x 1';
+        document.getElementById('buyBtn').innerHTML = 'Buy x 1';
         break;
     }
   }
