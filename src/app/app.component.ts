@@ -26,4 +26,22 @@ export class AppComponent {
     this.world.money = this.world.money + p.revenu * p.quantite;
     this.world.score = this.world.score + p.revenu * p.quantite;
   }
+
+  buyRate() {
+    let text = document.getElementById('buyBtn').innerHTML;
+    switch (text) {
+      case 'Buy x 1':
+        text = 'Buy x 10';
+        break;
+      case 'Buy x 10':
+        text = 'Buy x 100';
+        break;
+      case 'Buy x 100':
+        text = 'Buy Max';
+        break;
+      case 'Buy Max':
+        text = 'Buy x 1';
+        break;
+    }
+  }
 }

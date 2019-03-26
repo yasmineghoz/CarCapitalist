@@ -22,14 +22,14 @@ export class ProductComponent implements OnInit {
 
   @Input()
   set qtmulti(value: string) {
-  this._qtmulti = value;
-  if (this._qtmulti && this.product) this.calcMaxCanBuy();
+    this._qtmulti = value;
+    if (this._qtmulti && this.product) this.calcMaxCanBuy();
   }
 
   @Input()
   set money(value: number) {
-  this._money = value;
-  if (this._money && this.product) this.calcMaxCanBuy();
+    this._money = value;
+    if (this._money && this.product) this.calcMaxCanBuy();
   }
 
   @Input()
@@ -38,7 +38,7 @@ export class ProductComponent implements OnInit {
     this.lastupdate = Date.now();
   }
 
-  @Output() 
+  @Output()
   notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
 
   constructor() { }
@@ -53,15 +53,15 @@ export class ProductComponent implements OnInit {
     this.product.timeleft = this.product.vitesse;
   }
 
-  calcScore() : void {
+  calcScore(): void {
     let now = Date.now();
     let elapseTime = now - this.lastupdate;
     this.lastupdate = now;
 
-    if (this.product.timeleft != 0){
-      this.product.timeleft= this.product.timeleft - elapseTime ;
+    if (this.product.timeleft != 0) {
+      this.product.timeleft = this.product.timeleft - elapseTime;
       //console.log(this.product.timeleft);
-      if (this.product.timeleft<=0){
+      if (this.product.timeleft <= 0) {
         this.product.timeleft = 0;
         this.progressbar.set(0);
         this.notifyProduction.emit(this.product);
@@ -70,11 +70,10 @@ export class ProductComponent implements OnInit {
     // on prévient le composant parent que ce produit a généré son revenu.
   }
 
-  calcMaxCanBuy(){
+  calcMaxCanBuy() {
     let qtMax = 0;
-    qtMax = (Math.log(1-(this.money*(1-this.product.croissance))/this.product.revenu))/(Math.log(this.product.croissance))-1;
+    qtMax = (Math.log(1 - (this.money * (1 - this.product.croissance)) / this.product.revenu)) / (Math.log(this.product.croissance)) - 1;
     console.log(qtMax);
-    return qtMax;
   }
 
   ngOnInit() {
@@ -82,6 +81,6 @@ export class ProductComponent implements OnInit {
       strokeWidth: 50, color:
         '#00ff00'
     });
-    setInterval(() => {this.calcScore(); }, 100);
+    setInterval(() => { this.calcScore(); }, 100);
   }
 }

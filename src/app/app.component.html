@@ -6,6 +6,8 @@
 
   <div class="container"><br />
 
+    <button id="buyBtn" class="btn btn-warning" (click)="buyRate()">Buy x 1</button>
+
     <div class="bg-info col-md-2 offset-md-5"> Money : [{{world.money | bigvalue}} €]</div>
 
     <div *ngFor="let product of this.world.products.product">
