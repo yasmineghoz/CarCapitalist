@@ -57,6 +57,7 @@ export class ProductComponent implements OnInit, OnChanges {
     this.progressbar.set(0);
     this.progressbar.animate(1, { duration: this.product.vitesse });
     this.product.timeleft = this.product.vitesse;
+    setTimeout(() => {this.product.quantite += 1; }, this.product.timeleft);
   }
 
   calcScore(): void {
@@ -90,10 +91,12 @@ export class ProductComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.rate.currentValue === 'Max') {
-      this.rateProd = this.calcMaxCanBuy().toString();
-    } else {
-      this.rateProd = changes.rate.currentValue;
+    if (changes.rate) {
+      if (changes.rate.currentValue === 'Max') {
+        this.rateProd = this.calcMaxCanBuy().toString();
+      } else {
+        this.rateProd = changes.rate.currentValue;
+      }
     }
   }
 }
