@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter, Host, OnChanges, SimpleChanges } from '@angular/core';
 import { Product, World } from '../world';
 import { apiUrl } from './api';
+import { AppComponent } from '../app.component';
 
 declare var require;
 const ProgressBar = require('progressbar.js');
@@ -10,11 +11,14 @@ const ProgressBar = require('progressbar.js');
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, OnChanges {
 
   product: Product;
   lastupdate: number;
+  rateProd: string;
+  // tslint:disable-next-line:variable-name
   _money: number;
+  // tslint:disable-next-line:variable-name
   _qtmulti: string;
 
   @ViewChild('bar') progressBarItem;
@@ -23,13 +27,13 @@ export class ProductComponent implements OnInit {
   @Input()
   set qtmulti(value: string) {
     this._qtmulti = value;
-    if (this._qtmulti && this.product) this.calcMaxCanBuy();
+    if (this._qtmulti && this.product) { this.calcMaxCanBuy(); }
   }
 
   @Input()
   set money(value: number) {
     this._money = value;
-    if (this._money && this.product) this.calcMaxCanBuy();
+    if (this._money && this.product) { this.calcMaxCanBuy(); }
   }
 
   @Input()
@@ -38,10 +42,12 @@ export class ProductComponent implements OnInit {
     this.lastupdate = Date.now();
   }
 
+  @Input() rate: string;
+
   @Output()
   notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
 
-  constructor() { }
+  constructor(@Host() parent: AppComponent) { }
 
   getImage() {
     return apiUrl + this.product.logo;
@@ -54,13 +60,13 @@ export class ProductComponent implements OnInit {
   }
 
   calcScore(): void {
-    let now = Date.now();
-    let elapseTime = now - this.lastupdate;
+    const now = Date.now();
+    const elapseTime = now - this.lastupdate;
     this.lastupdate = now;
 
-    if (this.product.timeleft != 0) {
+    if (this.product.timeleft !== 0) {
       this.product.timeleft = this.product.timeleft - elapseTime;
-      //console.log(this.product.timeleft);
+      // console.log(this.product.timeleft);
       if (this.product.timeleft <= 0) {
         this.product.timeleft = 0;
         this.progressbar.set(0);
@@ -71,9 +77,11 @@ export class ProductComponent implements OnInit {
   }
 
   calcMaxCanBuy() {
-    let qtMax = 0;
-    qtMax = (Math.log(1 - (this.money * (1 - this.product.croissance)) / this.product.revenu)) / (Math.log(this.product.croissance)) - 1;
-    console.log(qtMax);
+    console.log('money' + this._money);
+    console.log('%' + this.product.croissance);
+    console.log('revenu' + this.product.revenu);
+    const qtMax = (Math.log((-this._money * (1 - this.product.croissance)) / this.product.revenu + 1)) / Math.log(this.product.croissance);
+    return qtMax;
   }
 
   ngOnInit() {
@@ -82,5 +90,13 @@ export class ProductComponent implements OnInit {
         '#00ff00'
     });
     setInterval(() => { this.calcScore(); }, 100);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.rate.currentValue === 'Max') {
+      this.rateProd = this.calcMaxCanBuy().toString();
+    } else {
+      this.rateProd = changes.rate.currentValue;
+    }
   }
 }

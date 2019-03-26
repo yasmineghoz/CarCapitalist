@@ -14,7 +14,12 @@ export class AppComponent {
   world: World = new World();
   server: string;
 
+  rate: string;
+  rates: string[] = ['1', '10', '100', 'Max'];
+  rateIndex = 0;
+
   constructor(private service: RestserviceService) {
+    this.rate = this.rates[this.rateIndex];
     this.server = service.server;
     service.getWorld().then(
       world => {
@@ -28,19 +33,7 @@ export class AppComponent {
   }
 
   buyRate() {
-    switch (document.getElementById('buyBtn').innerHTML) {
-      case 'Buy x 1':
-        document.getElementById('buyBtn').innerHTML = 'Buy x 10';
-        break;
-      case 'Buy x 10':
-        document.getElementById('buyBtn').innerHTML = 'Buy x 100';
-        break;
-      case 'Buy x 100':
-        document.getElementById('buyBtn').innerHTML = 'Buy Max';
-        break;
-      case 'Buy Max':
-        document.getElementById('buyBtn').innerHTML = 'Buy x 1';
-        break;
-    }
+    this.rateIndex = (this.rateIndex + 1) % this.rates.length;
+    this.rate = this.rates[this.rateIndex];
   }
 }
