@@ -20,6 +20,7 @@ export class ProductComponent implements OnInit, OnChanges {
   _money: number;
   // tslint:disable-next-line:variable-name
   _qtmulti: string;
+  _defaultrevenu : number;
 
   @ViewChild('bar') progressBarItem;
   progressbar: any;
@@ -44,6 +45,12 @@ export class ProductComponent implements OnInit, OnChanges {
 
   @Input() rate: string;
 
+  @Input()
+  set defaultrevenu(value: number) {
+    this._defaultrevenu = value;
+    if (this._defaultrevenu && this.product) { this.calcMaxCanBuy(); }
+  }
+
   @Output()
   notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
 
@@ -57,7 +64,6 @@ export class ProductComponent implements OnInit, OnChanges {
     this.progressbar.set(0);
     this.progressbar.animate(1, { duration: this.product.vitesse });
     this.product.timeleft = this.product.vitesse;
-    setTimeout(() => {this.product.quantite += 1; }, this.product.timeleft);
   }
 
   calcScore(): void {
@@ -80,6 +86,12 @@ export class ProductComponent implements OnInit, OnChanges {
   calcMaxCanBuy() {
     const qtMax = (Math.log((-this._money * (1 - this.product.croissance)) / this.product.cout + 1)) / Math.log(this.product.croissance);
     return Math.round(qtMax);
+  }
+
+  updateBuy() {
+    const revenu = this.product.revenu;
+    this.product.quantite +=1;
+    this._defaultrevenu = this.product.quantite * revenu;
   }
 
   ngOnInit() {

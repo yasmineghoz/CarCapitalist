@@ -3,7 +3,7 @@
   <div class="col-md-3">
     <img [attr.src]="this.getImage()" width="80%" (click)="startFabrication()" style="cursor:pointer" />
     <div class="bg-secondary text-white">{{product.name}} : [{{product.quantite}}]</div>
-    <button id=buyBtn{{product.id}} class="btn btn-warning">Buy x {{ rateProd }}</button>
+    <button id=buyBtn{{product.id}} class="btn btn-warning" (click)="updateBuy()">Buy x {{ rateProd }}</button>
   </div>
   <div class="col-md-5"><br/>
     Revenu : [{{product.revenu}} €] 
