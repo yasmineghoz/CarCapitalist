@@ -77,11 +77,8 @@ export class ProductComponent implements OnInit, OnChanges {
   }
 
   calcMaxCanBuy() {
-    console.log('money' + this._money);
-    console.log('%' + this.product.croissance);
-    console.log('revenu' + this.product.revenu);
-    const qtMax = (Math.log((-this._money * (1 - this.product.croissance)) / this.product.revenu + 1)) / Math.log(this.product.croissance);
-    return qtMax;
+    const qtMax = (Math.log((-this._money * (1 - this.product.croissance)) / this.product.cout + 1)) / Math.log(this.product.croissance);
+    return Math.round(qtMax);
   }
 
   ngOnInit() {
