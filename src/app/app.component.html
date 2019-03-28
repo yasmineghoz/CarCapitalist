@@ -18,9 +18,35 @@
       <button>Unlocks</button>
       <button>Cash Upgrades</button>
       <button>Angel Upgrades</button>
-      <button>Managers</button>
       <button>Investors</button>
     </div>
 
+    <div class="buttonleft btn btn-primary btn-lg" data-toggle="modal" (click)="managersModal.show()">Managers</div>
+
   </div>
 </div>
+
+<app-modal #managersModal> 
+  <div class="app-modal-header"> 
+      <h4 class="modal-title">Les Managers vous soulagent !</h4> 
+  </div> 
+  <div class="app-modal-body"> 
+      <div *ngFor="let manager of world.managers.pallier"> 
+        <div>
+          <img attr.src="http://localhost:8080/{{manager.logo}}" class="round"/>
+          
+            <div class="dib" *ngFor="let product of world.products.product">
+              <div class="dib" *ngIf="manager.idcible == product.id"><label>{{product.name}}</label></div>
+            </div>
+            <div class="dib right">
+              <label class="mr">{{manager.seuil}}€</label>
+              <button class="btn btn-dark">Embaucher !</button>
+            </div>
+            <label>{{manager.name}}</label> 
+        </div>
+      </div> 
+  </div> 
+  <div class="app-modal-footer"> 
+      <button type="button" class="btn btn-dark" (click)="managersModal.hide()">Fermer</button> 
+  </div> 
+</app-modal>

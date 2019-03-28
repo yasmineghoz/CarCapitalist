@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter, Host, OnChanges, SimpleChanges } from '@angular/core';
 import { Product, World } from '../world';
-import { apiUrl } from './api';
+import { apiUrl } from '../api';
 import { AppComponent } from '../app.component';
 
 declare var require;
@@ -77,11 +77,6 @@ export class ProductComponent implements OnInit, OnChanges {
     return Math.round(qtMax);
   }
 
-  test() {
-    return apiUrl + this.product.revenu;
-  }
-
-
   ngOnInit() {
     this.progressbar = new ProgressBar.Line(this.progressBarItem.nativeElement, {
       strokeWidth: 50, color:
@@ -103,7 +98,10 @@ export class ProductComponent implements OnInit, OnChanges {
 
   updateBuy() {
     if (this._money >= this.product.cout) {
-      this.notifyBuy.emit(this.product.cout * ((1 - Math.pow(this.product.croissance, parseInt(this.rate))) / (1 - this.product.croissance)));
+      // tslint:disable-next-line:radix
+      this.notifyBuy.emit(this.product.cout * ((1 - Math.pow(this.product.croissance, parseInt(this.rate))) /
+        (1 - this.product.croissance)));
+      // tslint:disable-next-line:radix
       this.product.quantite += parseInt(this.rate);
       this.revenu = this.product.revenu * this.product.quantite;
       this.product.cout = this.product.cout * this.product.croissance;

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { RestserviceService } from './restservice.service';
 import { World, Product, Pallier } from './world';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { apiUrl } from './api';
 
 @Component({
   selector: 'app-root',
