@@ -18,18 +18,10 @@ export class ProductComponent implements OnInit, OnChanges {
   rateProd: string;
   // tslint:disable-next-line:variable-name
   _money: number;
-  // tslint:disable-next-line:variable-name
-  _qtmulti: string;
   revenu: number;
 
   @ViewChild('bar') progressBarItem;
   progressbar: any;
-
-  @Input()
-  set qtmulti(value: string) {
-    this._qtmulti = value;
-    if (this._qtmulti && this.product) { this.calcMaxCanBuy(); }
-  }
 
   @Input()
   set money(value: number) {
@@ -89,14 +81,6 @@ export class ProductComponent implements OnInit, OnChanges {
     return apiUrl + this.product.revenu;
   }
 
-  updateBuy() {
-    if (this._money >= this.product.cout) {
-      this.notifyBuy.emit(this.product.cout * ((1 - Math.pow(this.product.croissance, parseInt(this.rate))) / (1 - this.product.croissance)));
-      this.product.quantite += 1;
-      this.revenu = this.product.revenu * this.product.quantite;
-      this.product.cout = this.product.cout * this.product.croissance;
-    }
-  }
 
   ngOnInit() {
     this.progressbar = new ProgressBar.Line(this.progressBarItem.nativeElement, {
@@ -114,6 +98,15 @@ export class ProductComponent implements OnInit, OnChanges {
       } else {
         this.rateProd = changes.rate.currentValue;
       }
+    }
+  }
+
+  updateBuy() {
+    if (this._money >= this.product.cout) {
+      this.notifyBuy.emit(this.product.cout * ((1 - Math.pow(this.product.croissance, parseInt(this.rate))) / (1 - this.product.croissance)));
+      this.product.quantite += parseInt(this.rate);
+      this.revenu = this.product.revenu * this.product.quantite;
+      this.product.cout = this.product.cout * this.product.croissance;
     }
   }
 }
