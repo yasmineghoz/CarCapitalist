@@ -11,7 +11,7 @@
     <div class="bg-info col-md-2 offset-md-5"> Money : [{{world.money | bigvalue}} €]</div>
 
     <div *ngFor="let product of this.world.products.product">
-      <app-product [prod]="product" [rate]="rate" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money"></app-product>
+      <app-product [prod]="product" [rate]="rate" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" (notifyBuy)="onProductBuy($event)"></app-product>
     </div>
 
     <div class="buttons">

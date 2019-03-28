@@ -36,4 +36,8 @@ export class AppComponent {
     this.rateIndex = (this.rateIndex + 1) % this.rates.length;
     this.rate = this.rates[this.rateIndex];
   }
+
+  onProductBuy(cost: number): void {
+    this.world.money -= cost;
+  }
 }
