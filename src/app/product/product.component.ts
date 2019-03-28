@@ -47,7 +47,7 @@ export class ProductComponent implements OnInit, OnChanges {
 
   @Output()
   notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
-  
+
   @Output()
   notifyBuy: EventEmitter<number> = new EventEmitter<number>();
 
@@ -90,10 +90,12 @@ export class ProductComponent implements OnInit, OnChanges {
   }
 
   updateBuy() {
-    this.notifyBuy.emit(this.product.cout * ((1 - Math.pow(this.product.croissance, 1)) / (1 - this.product.croissance)));
-    this.product.quantite += 1;
-    this.revenu = this.product.revenu * this.product.quantite;
-    this.product.cout = Math.round(this.product.cout * this.product.croissance);
+    if (this._money >= this.product.cout) {
+      this.notifyBuy.emit(this.product.cout * ((1 - Math.pow(this.product.croissance, parseInt(this.rate))) / (1 - this.product.croissance)));
+      this.product.quantite += 1;
+      this.revenu = this.product.revenu * this.product.quantite;
+      this.product.cout = this.product.cout * this.product.croissance;
+    }
   }
 
   ngOnInit() {

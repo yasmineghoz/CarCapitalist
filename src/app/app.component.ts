@@ -38,6 +38,8 @@ export class AppComponent {
   }
 
   onProductBuy(cost: number): void {
-    this.world.money -= cost;
+    if (this.world.money >= cost) {
+      this.world.money -= cost;
+    }
   }
 }

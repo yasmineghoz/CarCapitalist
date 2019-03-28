@@ -8,7 +8,7 @@
   <div class="col-md-5"><br/>
     Revenu : [{{revenu}} €] 
     <div class="progress" #bar style="height:10%"></div>
-    <div class="bg-warning text-white">Coût : [{{product.cout}} €]</div>
+    <div class="bg-warning text-white">Coût : [{{product.cout | bigvalue}} €]</div>
   </div>
   <div class="col-md-3"><br/><br/>
     <div class="bg-secondary text-white" style="height:18.5%">{{product.vitesse}} millisecondes</div> 
