@@ -60,16 +60,29 @@ export class ProductComponent implements OnInit, OnChanges {
     const elapseTime = now - this.lastupdate;
     this.lastupdate = now;
 
-    if (this.product.timeleft !== 0) {
-      this.product.timeleft = this.product.timeleft - elapseTime;
-      // console.log(this.product.timeleft);
-      if (this.product.timeleft <= 0) {
-        this.product.timeleft = 0;
-        this.progressbar.set(0);
-        this.notifyProduction.emit(this.product);
+    if (this.product.managerUnlocked) {
+      if (this.product.timeleft !== 0) {
+        this.product.timeleft = this.product.timeleft - elapseTime;
+        if (this.product.timeleft <= 0) {
+          this.product.timeleft = this.product.vitesse;
+          this.notifyProduction.emit(this.product);
+          this.startFabrication();
+        }
+      } else {
+        this.startFabrication();
+      }
+
+    } else {
+
+      if (this.product.timeleft !== 0) {
+        this.product.timeleft = this.product.timeleft - elapseTime;
+        if (this.product.timeleft <= 0) {
+          this.product.timeleft = 0;
+          this.progressbar.set(0);
+          this.notifyProduction.emit(this.product);
+        }
       }
     }
-    // on prévient le composant parent que ce produit a généré son revenu.
   }
 
   calcMaxCanBuy() {
