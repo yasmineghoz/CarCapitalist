@@ -54,7 +54,7 @@ export class AppComponent {
     for (const manager of this.world.managers.pallier) {
       if (manager.idcible === id) {
         manager.unlocked = true;
-        this.toasterService.pop('success', 'Manager hired ! ', manager.name);
+        this.toasterService.pop('success', 'Manager Embauché !', manager.name);
       }
     }
     for (const product of this.world.products.product) {
