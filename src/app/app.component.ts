@@ -23,10 +23,16 @@ export class AppComponent {
 
   toasterService: ToasterService;
 
+  username: string;
+
   constructor(private service: RestserviceService, toasterService: ToasterService) {
     this.rate = this.rates[this.rateIndex];
     this.server = service.server;
     this.toasterService = toasterService;
+
+    this.username = localStorage.getItem('username');
+    localStorage.setItem('username', this.username);
+
     service.getWorld().then(
       world => {
         this.world = world;

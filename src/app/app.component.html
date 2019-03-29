@@ -6,6 +6,8 @@
 
   <div class="container"><br />
 
+    <input type="text" [(ngModel)]="username" change="onUsernameChanged()"/> 
+
     <button id="buyBtn" class="btn btn-warning" (click)="buyRate()">Buy x {{ rate }}</button>
 
     <div class="bg-info col-md-2 offset-md-5"> Money : [{{world.money | bigvalue}} €]</div>
