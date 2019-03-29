@@ -36,6 +36,7 @@ export class AppComponent {
   onProductionDone(p: Product) {
     this.world.money = this.world.money + p.revenu * p.quantite;
     this.world.score = this.world.score + p.revenu * p.quantite;
+    this.newManager();
   }
 
   buyRate() {
@@ -47,6 +48,7 @@ export class AppComponent {
     if (this.world.money >= cost) {
       this.world.money -= cost;
     }
+    this.newManager();
   }
 
   buyManager(cost: number, id: number): void {
@@ -60,6 +62,17 @@ export class AppComponent {
     for (const product of this.world.products.product) {
       if (product.id === id) {
         product.managerUnlocked = true;
+      }
+    }
+  }
+
+  newManager() {
+    for (const manager of this.world.managers.pallier) {
+      if (this.world.money >= manager.seuil && manager.unlocked === false) {
+        document.getElementById('btnManagers').innerHTML = '<span class="badge">New</span> Managers';
+        break;
+      } else {
+        document.getElementById('btnManagers').innerHTML = 'Managers';
       }
     }
   }
