@@ -8,7 +8,8 @@ import { ToasterService } from 'angular2-toaster';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [ToasterService]
 })
 export class AppComponent {
   title = 'CarCapitalist';
@@ -19,11 +20,13 @@ export class AppComponent {
   rate: string;
   rates: string[] = ['1', '10', '100', 'Max'];
   rateIndex = 0;
+
   toasterService: ToasterService;
 
-  constructor(private service: RestserviceService) {
+  constructor(private service: RestserviceService, toasterService: ToasterService) {
     this.rate = this.rates[this.rateIndex];
     this.server = service.server;
+    this.toasterService = toasterService;
     service.getWorld().then(
       world => {
         this.world = world;
@@ -51,8 +54,8 @@ export class AppComponent {
     for (const manager of this.world.managers.pallier) {
       if (manager.idcible === id) {
         manager.unlocked = true;
+        this.toasterService.pop('success', 'Manager hired ! ', manager.name);
       }
-      this.toasterService.pop('success', 'Manager hired ! ', manager.name);
     }
     for (const product of this.world.products.product) {
       if (product.id === id) {

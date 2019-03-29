@@ -16,7 +16,7 @@ import { ToasterModule } from 'angular2-toaster';
     AppComponent,
     ProductComponent,
     BigvaluePipe,
-    ModalComponent  
+    ModalComponent
   ],
   imports: [
     BrowserModule,
