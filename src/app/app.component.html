@@ -40,7 +40,8 @@
               </div>
               <div class="dib right">
                 <label class="mr">{{manager.seuil}}€</label>
-                <button class="btn btn-dark" [disabled]="world.money < manager.seuil">Embaucher !</button>
+                <button class="btn btn-dark" [disabled]="world.money < manager.seuil"
+                  (click)="buyManager(manager.seuil, manager.idcible)">Embaucher !</button>
               </div>
               <label>{{manager.name}}</label> 
           </div>

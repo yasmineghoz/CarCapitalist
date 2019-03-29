@@ -43,4 +43,13 @@ export class AppComponent {
       this.world.money -= cost;
     }
   }
+
+  buyManager(cost: number, id: number): void {
+    this.world.money -= cost;
+    for (const manager of this.world.managers.pallier) {
+      if (manager.idcible === id) {
+        manager.unlocked = true;
+      }
+    }
+  }
 }
