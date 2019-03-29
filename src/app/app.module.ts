@@ -9,18 +9,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { RestserviceService } from './restservice.service';
 import { BigvaluePipe } from './bigvalue.pipe';
 import { ModalComponent } from './modal/modal.component';
+import { ToasterModule } from 'angular2-toaster';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductComponent,
     BigvaluePipe,
-    ModalComponent
+    ModalComponent  
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToasterModule
   ],
   providers: [RestserviceService],
   bootstrap: [AppComponent]

@@ -3,6 +3,7 @@ import { RestserviceService } from './restservice.service';
 import { World, Product, Pallier } from './world';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { apiUrl } from './api';
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent {
   rate: string;
   rates: string[] = ['1', '10', '100', 'Max'];
   rateIndex = 0;
+  toasterService: ToasterService;
 
   constructor(private service: RestserviceService) {
     this.rate = this.rates[this.rateIndex];
@@ -50,6 +52,7 @@ export class AppComponent {
       if (manager.idcible === id) {
         manager.unlocked = true;
       }
+      this.toasterService.pop('success', 'Manager hired ! ', manager.name);
     }
     for (const product of this.world.products.product) {
       if (product.id === id) {
