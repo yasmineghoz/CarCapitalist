@@ -51,5 +51,10 @@ export class AppComponent {
         manager.unlocked = true;
       }
     }
+    for (const product of this.world.products.product) {
+      if (product.id === id) {
+        product.managerUnlocked = true;
+      }
+    }
   }
 }
