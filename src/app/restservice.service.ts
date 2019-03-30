@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { World, Pallier, Product } from './world';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class RestserviceService {
@@ -33,8 +34,8 @@ export class RestserviceService {
       .catch(this.handleError);
   }
 
-  private setHeaders(user: string): Headers {
-    const headers = new Headers();
+  private setHeaders(user: string): HttpHeaders {
+    const headers = new HttpHeaders();
     headers.append('X-User', user);
     return headers;
   }
