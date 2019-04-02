@@ -20,6 +20,7 @@ export class ProductComponent implements OnInit, OnChanges {
   // tslint:disable-next-line:variable-name
   _money: number;
   revenu: number;
+  currentcout: number;
 
   @ViewChild('bar') progressBarItem;
   progressbar: any;
@@ -88,7 +89,8 @@ export class ProductComponent implements OnInit, OnChanges {
 
   calcMaxCanBuy() {
     const qtMax = (Math.log((-this._money * (1 - this.product.croissance)) / this.product.cout + 1)) / Math.log(this.product.croissance);
-    return Math.round(qtMax);
+    this.calcCout();
+    return Math.trunc(qtMax);
   }
 
   ngOnInit() {
@@ -98,6 +100,7 @@ export class ProductComponent implements OnInit, OnChanges {
     });
     setInterval(() => { this.calcScore(); }, 100);
     this.revenu = this.product.revenu;
+    this.currentcout = this.product.cout;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -119,7 +122,42 @@ export class ProductComponent implements OnInit, OnChanges {
       this.product.quantite += parseInt(this.rate);
       this.revenu = this.product.revenu * this.product.quantite;
       this.product.cout = this.product.cout * this.product.croissance;
-      // si quantite produit = seuil de l'unlock associé à l'id du produit, unlock devient true.
+      // unlock les unlock
+      for (const unlock of this.world.allunlocks.pallier) {
+        if (this.product.id == unlock.idcible && this.product.quantite == unlock.seuil) {
+          unlock.unlocked = true;
+        }
+      }
+    }
+  }
+
+  getRealPrice() {
+    return this.product.cout * this.product.croissance ** this.product.quantite;
+  }
+
+  calcCout() {
+    let res=0;
+    let price = this.getRealPrice();
+    let multi = this.calcMaxCanBuy();
+
+    if(this.rateProd=="Max"){
+      res = (price * ((1 - Math.pow(this.product.croissance,multi+1))/(1-this.product.croissance)));
+      this.currentcout = res;
+    }
+
+    if(this.rateProd=="100"){
+      res= (price * ((1 - Math.pow(this.product.croissance,100+1))/(1-this.product.croissance)));
+      this.currentcout = res;
+    }
+    
+    if (this.rateProd === "10") {
+      res= (price * ((1 - Math.pow(this.product.croissance,10+1))/(1-this.product.croissance)));
+      this.currentcout = res;
+    } 
+    
+    if (this.rateProd === "1") {
+      res= (price * ((1 - Math.pow(this.product.croissance,1+1))/(1-this.product.croissance)));
+      this.currentcout = res;
     }
   }
 }

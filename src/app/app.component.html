@@ -8,7 +8,7 @@
 
     <input type="text" [(ngModel)]="username" change="onUsernameChanged()"/> 
 
-    <button id="buyBtn" class="btn btn-warning" (click)="buyRate()">Buy x {{ rate }}</button>
+    <button id="buyBtn" class="btn btn-warning" (click)="buyRate()" >Buy x {{ rate }}</button>
 
     <div class="bg-info col-md-2 offset-md-5"> Money : [{{world.money | bigvalue}} €]</div>
 
@@ -56,23 +56,20 @@
 </app-modal>
 
 <app-modal #unlocksModal>
-  <div class="app-modal-header" padding="20px">
+  <div class="app-modal-header">
     <h4 class="modal-title">Unlocks</h4>
   </div>
   <div class="app-modal-body">
     <div *ngFor="let unlock of world.allunlocks.pallier">
       <div *ngIf="unlock.unlocked == false">
         <div>
-          <img attr.src="http://localhost:8080/{{unlock.logo}}" width="15%"/>
+          <img attr.src="http://localhost:8080/{{unlock.logo}}" width="25%"/>
           <div class="dib" *ngFor="let product of world.products.product">
             <div class="dib" *ngIf="unlock.idcible == product.id"><label>{{product.name}}</label></div>
           </div>
           <div class="dib right">
-            <label class="mr">{{unlock.name}}</label>
             <label>{{unlock.seuil}}€</label>
             <label >({{unlock.typeratio}} x{{unlock.ratio}})</label>
-            <label></label>
-            <!--pas besoin de bouton-->
         </div>
       </div>
     </div> 

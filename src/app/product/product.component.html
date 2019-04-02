@@ -1,18 +1,17 @@
 <div>
-<div class="row">
-  <div class="col-md-3">
-    <img [attr.src]="this.getImage()" width="80%" (click)="startFabrication()" style="cursor:pointer" />
-    <div class="bg-secondary text-white">{{product.name}} : [{{product.quantite}}]</div>
-    <button id=buyBtn{{product.id}} class="btn btn-warning" (click)="updateBuy()">Buy x {{rateProd}}</button>
+  <div class="row">
+    <div class="col-md-3">
+      <img [attr.src]="this.getImage()" width="80%" (click)="startFabrication()" style="cursor:pointer" />
+      <div class="bg-secondary text-white">{{product.name}} : [{{product.quantite}}]</div>
+      <button id=buyBtn{{product.id}} class="btn btn-warning" (click)="updateBuy()">Buy x {{rateProd}}</button>
+    </div>
+    <div class="col-md-5"><br />
+      Revenu : [{{revenu}} €]
+      <div class="progress" #bar style="height:10%"></div>
+      <div class="bg-warning text-white" (notifyRateChange)="calcCout()">Coût : {{currentcout}} €</div>
+    </div>
+    <div class="col-md-3"><br /><br />
+      <div class="bg-secondary text-white" style="height:18.5%">{{product.vitesse}} millisecondes</div>
+    </div>
   </div>
-  <div class="col-md-5"><br/>
-    Revenu : [{{revenu}} €] 
-    <div class="progress" #bar style="height:10%"></div>
-    <div class="bg-warning text-white">Coût : [{{product.cout | bigvalue}} €]</div>
-  </div>
-  <div class="col-md-3"><br/><br/>
-    <div class="bg-secondary text-white" style="height:18.5%">{{product.vitesse}} millisecondes</div> 
-  </div>
-</div>
-  
 </div>
