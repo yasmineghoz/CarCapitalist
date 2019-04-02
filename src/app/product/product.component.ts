@@ -13,6 +13,7 @@ const ProgressBar = require('progressbar.js');
 })
 export class ProductComponent implements OnInit, OnChanges {
 
+  world: World;
   product: Product;
   lastupdate: number;
   rateProd: string;
@@ -118,6 +119,7 @@ export class ProductComponent implements OnInit, OnChanges {
       this.product.quantite += parseInt(this.rate);
       this.revenu = this.product.revenu * this.product.quantite;
       this.product.cout = this.product.cout * this.product.croissance;
+      // si quantite produit = seuil de l'unlock associé à l'id du produit, unlock devient true.
     }
   }
 }
