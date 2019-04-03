@@ -21,6 +21,7 @@ export class ProductComponent implements OnInit, OnChanges {
   _money: number;
   revenu: number;
   currentcout: number;
+  // tslint:disable-next-line:variable-name
   _rate: string;
 
   @ViewChild('bar') progressBarItem;
@@ -29,8 +30,10 @@ export class ProductComponent implements OnInit, OnChanges {
   @Input()
   set money(value: number) {
     this._money = value;
-    if (this._money && this.product) { this.calcMaxCanBuy();   this.calcCout();}
-   
+    if (this._money && this.product) {
+      this.calcMaxCanBuy();
+      this.calcCout();
+    }
   }
 
   @Input()
@@ -95,7 +98,6 @@ export class ProductComponent implements OnInit, OnChanges {
 
   calcMaxCanBuy() {
     const qtMax = (Math.log((-this._money * (1 - this.product.croissance)) / this.product.cout + 1)) / Math.log(this.product.croissance);
-    //this.calcCout();
     return Math.trunc(qtMax);
   }
 
@@ -130,7 +132,7 @@ export class ProductComponent implements OnInit, OnChanges {
       this.product.cout = this.product.cout * this.product.croissance ** this.product.quantite;
       // unlock les unlock
       for (const unlock of this.world.allunlocks.pallier) {
-        if (this.product.id == unlock.idcible && this.product.quantite == unlock.seuil) {
+        if (this.product.id === unlock.idcible && this.product.quantite === unlock.seuil) {
           unlock.unlocked = true;
         }
       }
@@ -138,28 +140,28 @@ export class ProductComponent implements OnInit, OnChanges {
   }
 
   calcCout() {
-    let res=0;
-    let price = this.product.cout;
-    let multi = this.calcMaxCanBuy();
+    let res = 0;
+    const price = this.product.cout;
+    const multi = this.calcMaxCanBuy();
 
-    if(this._rate=="Max"){
-      res = (price * ((1 - Math.pow(this.product.croissance,multi))/(1-this.product.croissance)));
+    if (this._rate === 'Max') {
+      res = (price * ((1 - Math.pow(this.product.croissance, multi)) / (1 - this.product.croissance)));
       this.currentcout = res;
       this.rateProd = this.calcMaxCanBuy().toString();
     }
 
-    if(this._rate=="100"){
-      res= (price * ((1 - Math.pow(this.product.croissance,100))/(1-this.product.croissance)));
+    if (this._rate === '100') {
+      res = (price * ((1 - Math.pow(this.product.croissance, 100)) / (1 - this.product.croissance)));
       this.currentcout = res;
     }
-    
-    if (this._rate === "10") {
-      res= (price * ((1 - Math.pow(this.product.croissance,10))/(1-this.product.croissance)));
+
+    if (this._rate === '10') {
+      res = (price * ((1 - Math.pow(this.product.croissance, 10)) / (1 - this.product.croissance)));
       this.currentcout = res;
-    } 
-    
-    if (this._rate === "1") {
-      res= (price * ((1 - Math.pow(this.product.croissance,1))/(1-this.product.croissance)));
+    }
+
+    if (this._rate === '1') {
+      res = (price * ((1 - Math.pow(this.product.croissance, 1)) / (1 - this.product.croissance)));
       this.currentcout = res;
     }
   }

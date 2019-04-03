@@ -11,7 +11,7 @@ export class RestserviceService {
   server = 'http://localhost:8080/adventureisis/';
 
   // tslint:disable-next-line:variable-name
-  _user = '';
+  _user = localStorage.getItem('username');
 
   get user() {
     return this._user;
@@ -36,7 +36,7 @@ export class RestserviceService {
 
   private setHeaders(user: string): HttpHeaders {
     const headers = new HttpHeaders();
-    headers.append('X-User', user);
+    headers.append('X-user', user);
     return headers;
   }
 }

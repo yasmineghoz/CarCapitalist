@@ -30,13 +30,15 @@ export class AppComponent {
     this.server = service.server;
     this.toasterService = toasterService;
 
-    this.username = localStorage.getItem('username');
-    localStorage.setItem('username', this.username);
-
     service.getWorld().then(
       world => {
         this.world = world;
       });
+  }
+
+  onUsernameChanged() {
+    this.username = localStorage.getItem('username');
+    localStorage.setItem('username', this.username);
   }
 
   onProductionDone(p: Product) {
