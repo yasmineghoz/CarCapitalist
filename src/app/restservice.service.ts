@@ -10,15 +10,14 @@ export class RestserviceService {
 
   server = 'http://localhost:8080/adventureisis/';
 
-  // tslint:disable-next-line:variable-name
-  _user = '';
+  user = localStorage.getItem('username');
 
-  get user() {
-    return this._user;
+  getUser() {
+    return this.user;
   }
 
-  set user(user) {
-    this._user = user;
+  setUser(user) {
+    this.user = user;
   }
 
   private handleError(error: any): Promise<any> {
@@ -36,7 +35,7 @@ export class RestserviceService {
 
   private setHeaders(user: string): HttpHeaders {
     const headers = new HttpHeaders();
-    headers.append('X-User', user);
+    headers.append('X-user', user);
     return headers;
   }
 }
