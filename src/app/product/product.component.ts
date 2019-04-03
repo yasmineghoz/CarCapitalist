@@ -97,8 +97,7 @@ export class ProductComponent implements OnInit, OnChanges {
   }
 
   calcMaxCanBuy() {
-    const qtMax = (Math.log((1-this._money * (1 - this.product.croissance)) / this.product.cout + 1)) / Math.log(this.product.croissance);
-    //this.calcCout();
+    const qtMax = (Math.log((1 - this._money * (1 - this.product.croissance)) / this.product.cout + 1)) / Math.log(this.product.croissance);
     return Math.trunc(qtMax);
   }
 
