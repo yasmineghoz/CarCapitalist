@@ -30,15 +30,13 @@ export class AppComponent {
     this.server = service.server;
     this.toasterService = toasterService;
 
+    this.username = localStorage.getItem('username');
+    localStorage.setItem('username', this.username);
+
     service.getWorld().then(
       world => {
         this.world = world;
       });
-  }
-
-  onUsernameChanged() {
-    localStorage.setItem('username', this.username);
-    this.service.setUser(this.username);
   }
 
   onProductionDone(p: Product) {
@@ -82,15 +80,6 @@ export class AppComponent {
       } else {
         document.getElementById('btnManagers').innerHTML = 'Managers';
       }
-    }
-  }
-
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngOnInit() {
-    this.username = localStorage.getItem('username');
-    if (this.username == null) {
-      this.username = 'Captain' + Math.floor(Math.random() * 10000);
-      localStorage.setItem('username', this.username);
     }
   }
 }

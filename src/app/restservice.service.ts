@@ -10,14 +10,15 @@ export class RestserviceService {
 
   server = 'http://localhost:8080/adventureisis/';
 
-  user = localStorage.getItem('username');
+  // tslint:disable-next-line:variable-name
+  _user = '';
 
-  getUser() {
-    return this.user;
+  get user() {
+    return this._user;
   }
 
-  setUser(user: string) {
-    this.user = user;
+  set user(user) {
+    this._user = user;
   }
 
   private handleError(error: any): Promise<any> {
@@ -27,7 +28,7 @@ export class RestserviceService {
 
   getWorld(): Promise<World> {
     return this.http.get(this.server + 'generic/world', {
-      headers: this.setHeaders('test')
+      headers: this.setHeaders(this.user)
     })
       .toPromise()
       .catch(this.handleError);
@@ -35,8 +36,7 @@ export class RestserviceService {
 
   private setHeaders(user: string): HttpHeaders {
     const headers = new HttpHeaders();
-    headers.append('X-user', user);
-    console.log(user);
+    headers.append('X-User', user);
     return headers;
   }
 }

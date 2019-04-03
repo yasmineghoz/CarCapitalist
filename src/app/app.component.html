@@ -6,78 +6,80 @@
 
   <div class="container"><br />
 
-    <input type="text" [(ngModel)]="username" (change)="onUsernameChanged()"/> 
+    <input type="text" [(ngModel)]="username" change="onUsernameChanged()" />
 
-    <button id="buyBtn" class="btn btn-warning" (click)="buyRate()" >Buy x {{ rate }}</button>
+    <button id="buyBtn" class="btn btn-warning" (click)="buyRate()">Buy x {{ rate }}</button>
 
     <div class="bg-info col-md-2 offset-md-5"> Money : [{{world.money | bigvalue}} €]</div>
 
     <div *ngFor="let product of this.world.products.product">
-      <app-product [prod]="product" [rate]="rate" class="product" (notifyProduction)="onProductionDone($event)" [money]="world.money" (notifyBuy)="onProductBuy($event)"></app-product>
+      <app-product [prod]="product" [rate]="rate" class="product" (notifyProduction)="onProductionDone($event)"
+        [money]="world.money" (notifyBuy)="onProductBuy($event)"></app-product>
     </div>
 
     <div class="buttons">
-      <div class="buttonleft btn btn-primary btn-lg" id="btnUnlocks" data-toogle="modal" (click)="unlocksModal.show()">Unlocks</div>
+      <div class="buttonleft btn btn-primary btn-lg" id="btnUnlocks" data-toogle="modal" (click)="unlocksModal.show()">
+        Unlocks</div>
       <button>Cash Upgrades</button>
       <button>Angel Upgrades</button>
       <button>Investors</button>
     </div>
-    <div class="buttonleft btn btn-primary btn-lg" id="btnManagers" data-toggle="modal" (click)="managersModal.show()">Managers</div>
+    <div class="buttonleft btn btn-primary btn-lg" id="btnManagers" data-toggle="modal" (click)="managersModal.show()">
+      Managers</div>
     <toaster-container></toaster-container>
   </div>
-  
+
 </div>
 
-<app-modal #managersModal> 
-  <div class="app-modal-header"> 
-      <h4 class="modal-title">Les Managers vous soulagent !</h4> 
-  </div> 
-  <div class="app-modal-body"> 
-      <div *ngFor="let manager of world.managers.pallier"> 
-        <div *ngIf="manager.unlocked == false">
-          <div>
-            <img attr.src="http://localhost:8080/{{manager.logo}}" class="round"/>
-              <div class="dib" *ngFor="let product of world.products.product">
-                <div class="dib" *ngIf="manager.idcible == product.id"><label>{{product.name}}</label></div>
-              </div>
-              <div class="dib right">
-                <label class="mr">{{manager.seuil}}€</label>
-                <button class="btn btn-dark" [disabled]="world.money < manager.seuil"
-                  (click)="buyManager(manager.seuil, manager.idcible)">Embaucher !</button>
-              </div>
-              <label>{{manager.name}}</label> 
+<app-modal #managersModal>
+  <div class="app-modal-header">
+    <h4 class="modal-title">Les Managers vous soulagent !</h4>
+  </div>
+  <div class="app-modal-body">
+    <div *ngFor="let manager of world.managers.pallier">
+      <div *ngIf="manager.unlocked == false">
+        <div>
+          <img attr.src="http://localhost:8080/{{manager.logo}}" class="round" />
+          <div class="dib" *ngFor="let product of world.products.product">
+            <div class="dib" *ngIf="manager.idcible == product.id"><label>{{product.name}}</label></div>
           </div>
+          <div class="dib right">
+            <label class="mr">{{manager.seuil}}€</label>
+            <button class="btn btn-dark" [disabled]="world.money < manager.seuil"
+              (click)="buyManager(manager.seuil, manager.idcible)">Embaucher !</button>
+          </div>
+          <label>{{manager.name}}</label>
         </div>
-      </div> 
-  </div> 
-  <div class="app-modal-footer"> 
-      <button type="button" class="btn btn-dark" (click)="managersModal.hide()">Fermer</button> 
-  </div> 
+      </div>
+    </div>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-dark" (click)="managersModal.hide()">Fermer</button>
+  </div>
 </app-modal>
 
 <app-modal #unlocksModal>
-  <div class="app-modal-header">
-    <h4 class="modal-title">Unlocks</h4>
-  </div>
-  <div class="app-modal-body">
-    <div *ngFor="let unlock of world.allunlocks.pallier">
-      <div *ngIf="unlock.unlocked == false">
-        <div>
-          <img attr.src="http://localhost:8080/{{unlock.logo}}" width="25%"/>
-          <div class="dib" *ngFor="let product of world.products.product">
-            <div class="dib" *ngIf="unlock.idcible == product.id"><label>{{product.name}}</label></div>
-          </div>
-          <div class="dib right">
-            <label>{{unlock.seuil}}€</label>
-            <label >({{unlock.typeratio}} x{{unlock.ratio}})</label>
+        <div class="app-modal-header">
+          <h4 class="modal-title">Unlocks</h4>
         </div>
-      </div>
-    </div> 
-  </div>
-  </div>
-  <div class="app-modal-footer"> 
-      <button type="button" class="btn btn-dark" (click)="unlocksModal.hide()">Fermer</button> 
-  </div>
+        <div class="app-modal-body">
+          <div *ngFor="let unlock of world.allunlocks.pallier">
+            <div *ngIf="unlock.unlocked == false">
+              <div>
+                <img attr.src="http://localhost:8080/{{unlock.logo}}" width="25%" />
+                <div class="dib" *ngFor="let product of world.products.product">
+                  <div class="dib" *ngIf="unlock.idcible == product.id"><label>{{product.name}}</label></div>
+                </div>
+                <div class="dib right">
+                  <label>{{unlock.seuil}}€</label>
+                  <label>({{unlock.typeratio}} x{{unlock.ratio}})</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-modal-footer">
+          <button type="button" class="btn btn-dark" (click)="unlocksModal.hide()">Fermer</button>
+        </div>
+
 </app-modal>
-
-
