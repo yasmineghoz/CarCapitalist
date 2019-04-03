@@ -127,15 +127,15 @@ export class ProductComponent implements OnInit, OnChanges {
       this.notifyBuy.emit(this.product.cout * ((1 - Math.pow(this.product.croissance, parseInt(this.rate))) /
         (1 - this.product.croissance)));
       // tslint:disable-next-line:radix
-      this.product.quantite += parseInt(this.rate);
+      this.product.quantite += parseInt(this.rateProd);
       this.revenu = this.product.revenu * this.product.quantite;
       this.product.cout = this.product.cout * this.product.croissance ** this.product.quantite;
       // unlock les unlock
-      for (const unlock of this.world.allunlocks.pallier) {
+      /*for (const unlock of this.world.allunlocks.pallier) {
         if (this.product.id === unlock.idcible && this.product.quantite === unlock.seuil) {
           unlock.unlocked = true;
         }
-      }
+      }*/
     }
   }
 
