@@ -21,6 +21,7 @@ export class ProductComponent implements OnInit, OnChanges {
   _money: number;
   revenu: number;
   currentcout: number;
+  _rate: string;
 
   @ViewChild('bar') progressBarItem;
   progressbar: any;
@@ -28,7 +29,8 @@ export class ProductComponent implements OnInit, OnChanges {
   @Input()
   set money(value: number) {
     this._money = value;
-    if (this._money && this.product) { this.calcMaxCanBuy(); }
+    if (this._money && this.product) { this.calcMaxCanBuy();   this.calcCout();}
+   
   }
 
   @Input()
@@ -37,7 +39,11 @@ export class ProductComponent implements OnInit, OnChanges {
     this.lastupdate = Date.now();
   }
 
-  @Input() rate: string;
+  @Input()
+  set rate(value: string) {
+    this._rate = value;
+    this.calcCout();
+  }
 
   @Output()
   notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
@@ -89,7 +95,7 @@ export class ProductComponent implements OnInit, OnChanges {
 
   calcMaxCanBuy() {
     const qtMax = (Math.log((-this._money * (1 - this.product.croissance)) / this.product.cout + 1)) / Math.log(this.product.croissance);
-    this.calcCout();
+    //this.calcCout();
     return Math.trunc(qtMax);
   }
 
@@ -121,7 +127,7 @@ export class ProductComponent implements OnInit, OnChanges {
       // tslint:disable-next-line:radix
       this.product.quantite += parseInt(this.rate);
       this.revenu = this.product.revenu * this.product.quantite;
-      this.product.cout = this.product.cout * this.product.croissance;
+      this.product.cout = this.product.cout * this.product.croissance ** this.product.quantite;
       // unlock les unlock
       for (const unlock of this.world.allunlocks.pallier) {
         if (this.product.id == unlock.idcible && this.product.quantite == unlock.seuil) {
@@ -131,32 +137,29 @@ export class ProductComponent implements OnInit, OnChanges {
     }
   }
 
-  getRealPrice() {
-    return this.product.cout * this.product.croissance ** this.product.quantite;
-  }
-
   calcCout() {
     let res=0;
-    let price = this.getRealPrice();
+    let price = this.product.cout;
     let multi = this.calcMaxCanBuy();
 
-    if(this.rateProd=="Max"){
-      res = (price * ((1 - Math.pow(this.product.croissance,multi+1))/(1-this.product.croissance)));
+    if(this._rate=="Max"){
+      res = (price * ((1 - Math.pow(this.product.croissance,multi))/(1-this.product.croissance)));
       this.currentcout = res;
+      this.rateProd = this.calcMaxCanBuy().toString();
     }
 
-    if(this.rateProd=="100"){
-      res= (price * ((1 - Math.pow(this.product.croissance,100+1))/(1-this.product.croissance)));
+    if(this._rate=="100"){
+      res= (price * ((1 - Math.pow(this.product.croissance,100))/(1-this.product.croissance)));
       this.currentcout = res;
     }
     
-    if (this.rateProd === "10") {
-      res= (price * ((1 - Math.pow(this.product.croissance,10+1))/(1-this.product.croissance)));
+    if (this._rate === "10") {
+      res= (price * ((1 - Math.pow(this.product.croissance,10))/(1-this.product.croissance)));
       this.currentcout = res;
     } 
     
-    if (this.rateProd === "1") {
-      res= (price * ((1 - Math.pow(this.product.croissance,1+1))/(1-this.product.croissance)));
+    if (this._rate === "1") {
+      res= (price * ((1 - Math.pow(this.product.croissance,1))/(1-this.product.croissance)));
       this.currentcout = res;
     }
   }
