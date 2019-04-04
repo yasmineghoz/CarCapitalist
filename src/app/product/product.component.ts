@@ -24,6 +24,8 @@ export class ProductComponent implements OnInit, OnChanges {
   // tslint:disable-next-line:variable-name
   _rate: string;
 
+  temps: any;
+
   @ViewChild('bar') progressBarItem;
   progressbar: any;
 
@@ -64,6 +66,7 @@ export class ProductComponent implements OnInit, OnChanges {
     this.progressbar.set(0);
     this.progressbar.animate(1, { duration: this.product.vitesse });
     this.product.timeleft = this.product.vitesse;
+    this.coutdown(this.product.id, this.product.vitesse);
   }
 
   calcScore(): void {
@@ -109,6 +112,7 @@ export class ProductComponent implements OnInit, OnChanges {
     setInterval(() => { this.calcScore(); }, 100);
     this.revenu = this.product.revenu;
     this.currentcout = this.product.cout;
+    this.temps = '0' + this.product.vitesse / 1000;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -165,5 +169,37 @@ export class ProductComponent implements OnInit, OnChanges {
       res = price * this.product.croissance ** this.product.quantite;
       this.currentcout = res;
     }
+  }
+
+  coutdown(id: number, speed: number) {
+    const countDownDate = new Date().getTime() + speed;
+    // tslint:disable-next-line:only-arrow-functions
+    const x = setInterval(function() {
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
+      let hours = (Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).toString();
+      let minutes = (Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).toString();
+      let seconds = (Math.floor((distance % (1000 * 60)) / 1000)).toString();
+      if (hours.match('0') || hours.match('-1')) {
+        hours = '00';
+      }
+      if (minutes.match('0') || minutes.match('-1')) {
+        minutes = '00';
+      }
+      if (seconds.match('0*') || seconds.match('-1')) {
+        seconds = '0' + seconds;
+      }
+      document.getElementById('temps' + id).innerHTML = hours + ':' + minutes + ':' + seconds;
+      if (distance < 0) {
+        let time = '';
+        if (speed <= 10000) {
+          time = '0' + (speed / 1000).toString();
+        } else {
+          time = (speed / 1000).toString();
+        }
+        clearInterval(x);
+        document.getElementById('temps' + id).innerHTML = hours + ':' + minutes + ':' + time;
+      }
+    }, 0);
   }
 }
