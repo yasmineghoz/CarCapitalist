@@ -10,14 +10,31 @@
     </form>
   </nav>
 
-  <div>
-      <br><button id="buyBtn" class="btn btn-warning offset-md-11" (click)="buyRate()">Buy x {{ rate }}</button>
-  </div>
-
   <div class="container"><br />
 
     <div class="row">
-      <div class="card-deck" margin="10px">
+      <div class="col-6">
+        <div class="buttons">
+          <div class="buttonleft btn btn-dark btn-md mr-2" id="btnUnlocks" data-toogle="modal"
+            (click)="unlocksModal.show()">
+            Unlocks</div>
+          <div class="buttonleft btn btn-dark btn-md mr-2" id="btnManagers" data-toggle="modal"
+            (click)="managersModal.show()">
+            Managers</div>
+          <div class="buttonleft btn btn-dark btn-md mr-2" id="btnManagers" data-toggle="modal">Cash Upgrades</div>
+          <div class="buttonleft btn btn-dark btn-md mr-2" id="btnManagers" data-toggle="modal">Angel Upgrades</div>
+        </div>
+
+      </div>
+      <div class="col-6">
+        <button id="buyBtn" class="btn btn-info offset-md-6" (click)="buyRate()">Buy {{ rate }}</button>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="card-deck">
         <div *ngFor="let product of this.world.products.product">
           <app-product [prod]="product" [rate]="rate" class="product" (notifyProduction)="onProductionDone($event)"
             [money]="world.money" (notifyBuy)="onProductBuy($event)"></app-product>
@@ -25,15 +42,6 @@
       </div>
     </div>
 
-    <div class="buttons">
-      <div class="buttonleft btn btn-primary btn-lg" id="btnUnlocks" data-toogle="modal" (click)="unlocksModal.show()">
-        Unlocks</div>
-      <button>Cash Upgrades</button>
-      <button>Angel Upgrades</button>
-      <button>Investors</button>
-    </div>
-    <div class="buttonleft btn btn-primary btn-lg" id="btnManagers" data-toggle="modal" (click)="managersModal.show()">
-      Managers</div>
     <toaster-container></toaster-container>
   </div>
 
