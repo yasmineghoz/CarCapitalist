@@ -131,7 +131,6 @@ export class ProductComponent implements OnInit, OnChanges {
       this.revenu = this.product.revenu * this.product.quantite;
       // this.product.cout = this.product.cout * this.product.croissance ** this.product.quantite;
       this.calcCout();
-      
       // unlock les unlock
       /*for (const unlock of this.world.allunlocks.pallier) {
         if (this.product.id === unlock.idcible && this.product.quantite === unlock.seuil) {
