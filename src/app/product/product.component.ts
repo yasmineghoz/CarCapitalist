@@ -66,7 +66,7 @@ export class ProductComponent implements OnInit, OnChanges {
     this.progressbar.set(0);
     this.progressbar.animate(1, { duration: this.product.vitesse });
     this.product.timeleft = this.product.vitesse;
-    this.coutdown(this.product.id, this.product.vitesse);
+    this.countdown(this.product.id, this.product.vitesse);
   }
 
   calcScore(): void {
@@ -171,7 +171,7 @@ export class ProductComponent implements OnInit, OnChanges {
     }
   }
 
-  coutdown(id: number, speed: number) {
+  countdown(id: number, speed: number) {
     const countDownDate = new Date().getTime() + speed;
     // tslint:disable-next-line:only-arrow-functions
     const x = setInterval(function() {
