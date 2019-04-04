@@ -27,7 +27,7 @@ export class RestserviceService {
 
   getWorld(): Promise<World> {
     return this.http.get(this.server + 'generic/world', {
-      headers: this.setHeaders(this.user)
+      headers: {'X-user': this.getUser()}
     })
       .toPromise()
       .catch(this.handleError);
