@@ -63,10 +63,10 @@ export class ProductComponent implements OnInit, OnChanges {
   }
 
   startFabrication() {
-      this.progressbar.set(0);
-      this.progressbar.animate(1, { duration: this.product.vitesse });
-      this.product.timeleft = this.product.vitesse;
-      this.countdown(this.product.id, this.product.vitesse);
+        this.progressbar.set(0);
+        this.progressbar.animate(1, { duration: this.product.vitesse });
+        this.product.timeleft = this.product.vitesse;
+        this.countdown(this.product.id, this.product.vitesse);
   }
 
   calcScore(): void {
