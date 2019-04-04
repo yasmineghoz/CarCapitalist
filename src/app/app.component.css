@@ -23,3 +23,17 @@ label {
 .mr {
     margin-right: 40px;
 }
+
+.buy {
+    background-color: #592d81;
+    color: white;
+}
+
+.bts {
+    background-color: #7743a7;
+    color: white;
+}
+
+.bts:hover {
+    background-color: #4a266b;
+}

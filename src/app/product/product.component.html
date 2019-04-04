@@ -1,8 +1,8 @@
 
-  <div class="card border-light mb-6" style="width: 18rem;">
-      <div class="card-header">
-        <h5 class="card-title">{{product.quantite}} x {{product.name}}</h5>
-      </div>
+  <div class="card border-light bg-light mb-6 shadow-lg" style="width: 18rem;">
+
+        <h5 class="card-title mt-3">{{product.quantite}} x {{product.name}}</h5>
+
       <img class="card-img-top" [attr.src]="this.getImage()" width="80%" (click)="startFabrication()" style="cursor:pointer"/>
       <div class="card-body">
         Earn {{revenu}} €

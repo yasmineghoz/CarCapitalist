@@ -63,10 +63,10 @@ export class ProductComponent implements OnInit, OnChanges {
   }
 
   startFabrication() {
-    this.progressbar.set(0);
-    this.progressbar.animate(1, { duration: this.product.vitesse });
-    this.product.timeleft = this.product.vitesse;
-    this.countdown(this.product.id, this.product.vitesse);
+      this.progressbar.set(0);
+      this.progressbar.animate(1, { duration: this.product.vitesse });
+      this.product.timeleft = this.product.vitesse;
+      this.countdown(this.product.id, this.product.vitesse);
   }
 
   calcScore(): void {
@@ -178,7 +178,7 @@ export class ProductComponent implements OnInit, OnChanges {
   countdown(id: number, speed: number) {
     const countDownDate = new Date().getTime() + speed;
     // tslint:disable-next-line:only-arrow-functions
-    const x = setInterval(function() {
+    const x = setInterval(function () {
       const now = new Date().getTime();
       const distance = countDownDate - now;
       let hours = (Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).toString();

@@ -12,7 +12,7 @@ import { ToasterService } from 'angular2-toaster';
   providers: [ToasterService]
 })
 export class AppComponent {
-  title = 'CarCapitalist';
+  title = 'Car Capitalist';
 
   world: World = new World();
   server: string;
