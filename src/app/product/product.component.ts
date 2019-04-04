@@ -104,7 +104,7 @@ export class ProductComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.progressbar = new ProgressBar.Line(this.progressBarItem.nativeElement, {
       strokeWidth: 50, color:
-        '#00ff00'
+        '#34495e'
     });
     setInterval(() => { this.calcScore(); }, 100);
     this.revenu = this.product.revenu;

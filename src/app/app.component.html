@@ -1,20 +1,28 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
+
+  <nav class="navbar navbar-dark bg-dark">
+    <h1 class="navbar-brand text-white">Welcome to {{ title }} !</h1>
+    <div class="bg-info col-md-1 offset-md-7"> {{world.money | bigvalue}} €</div>
+    <form class="form-inline">
+      <input type="text" [(ngModel)]="username" (change)="onUsernameChanged()" class="form-control" width="50%"
+        placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+    </form>
+  </nav>
+
+  <div>
+      <br><button id="buyBtn" class="btn btn-warning offset-md-11" (click)="buyRate()">Buy x {{ rate }}</button>
+  </div>
 
   <div class="container"><br />
 
-    <input type="text" [(ngModel)]="username" (change)="onUsernameChanged()" />
-
-    <button id="buyBtn" class="btn btn-warning" (click)="buyRate()">Buy x {{ rate }}</button>
-
-    <div class="bg-info col-md-2 offset-md-5"> Money : [{{world.money | bigvalue}} €]</div>
-
-    <div *ngFor="let product of this.world.products.product">
-      <app-product [prod]="product" [rate]="rate" class="product" (notifyProduction)="onProductionDone($event)"
-        [money]="world.money" (notifyBuy)="onProductBuy($event)"></app-product>
+    <div class="row">
+      <div class="card-deck" margin="10px">
+        <div *ngFor="let product of this.world.products.product">
+          <app-product [prod]="product" [rate]="rate" class="product" (notifyProduction)="onProductionDone($event)"
+            [money]="world.money" (notifyBuy)="onProductBuy($event)"></app-product>
+        </div>
+      </div>
     </div>
 
     <div class="buttons">
@@ -59,27 +67,27 @@
 </app-modal>
 
 <app-modal #unlocksModal>
-        <div class="app-modal-header">
-          <h4 class="modal-title">Unlocks</h4>
-        </div>
-        <div class="app-modal-body">
-          <div *ngFor="let unlock of world.allunlocks.pallier">
-            <div *ngIf="unlock.unlocked == false">
-              <div>
-                <img attr.src="http://localhost:8080/{{unlock.logo}}" width="25%" />
-                <div class="dib" *ngFor="let product of world.products.product">
-                  <div class="dib" *ngIf="unlock.idcible == product.id"><label>{{product.name}}</label></div>
-                </div>
-                <div class="dib right">
-                  <label>{{unlock.seuil}}€</label>
-                  <label>({{unlock.typeratio}} x{{unlock.ratio}})</label>
-                </div>
-              </div>
-            </div>
+  <div class="app-modal-header">
+    <h4 class="modal-title">Unlocks</h4>
+  </div>
+  <div class="app-modal-body">
+    <div *ngFor="let unlock of world.allunlocks.pallier">
+      <div *ngIf="unlock.unlocked == false">
+        <div>
+          <img attr.src="http://localhost:8080/{{unlock.logo}}" width="25%" />
+          <div class="dib" *ngFor="let product of world.products.product">
+            <div class="dib" *ngIf="unlock.idcible == product.id"><label>{{product.name}}</label></div>
+          </div>
+          <div class="dib right">
+            <label>{{unlock.seuil}}€</label>
+            <label>({{unlock.typeratio}} x{{unlock.ratio}})</label>
           </div>
         </div>
-        <div class="app-modal-footer">
-          <button type="button" class="btn btn-dark" (click)="unlocksModal.hide()">Fermer</button>
-        </div>
+      </div>
+    </div>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-dark" (click)="unlocksModal.hide()">Fermer</button>
+  </div>
 
 </app-modal>
