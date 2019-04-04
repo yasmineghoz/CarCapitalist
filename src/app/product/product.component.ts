@@ -122,7 +122,7 @@ export class ProductComponent implements OnInit, OnChanges {
   }
 
   updateBuy() {
-    if (this._money >= this.product.cout) {
+    if (this._money >= this.currentcout) {
       // tslint:disable-next-line:radix
       this.notifyBuy.emit(this.product.cout * ((1 - Math.pow(this.product.croissance, parseInt(this.rateProd))) /
         (1 - this.product.croissance)));
