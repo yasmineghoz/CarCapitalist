@@ -162,7 +162,7 @@ export class ProductComponent implements OnInit, OnChanges {
     }
 
     if (this._rate === '1') {
-      res = price * this.product.croissance ** this.product.quantite;
+      res = price * this.product.croissance;
       this.currentcout = res;
     }
   }
