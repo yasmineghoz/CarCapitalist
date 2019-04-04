@@ -10,11 +10,9 @@
     </form>
   </nav>
 
-  <div class="container"><br />
-
-    <div class="row">
+  <div class="row mt-3">
       <div class="col-6">
-        <div class="buttons">
+        <div class="buttons offset-md-1">
           <div class="buttonleft btn btn-dark btn-md mr-2" id="btnUnlocks" data-toogle="modal"
             (click)="unlocksModal.show()">
             Unlocks</div>
@@ -27,11 +25,11 @@
 
       </div>
       <div class="col-6">
-        <button id="buyBtn" class="btn btn-info offset-md-6" (click)="buyRate()">Buy {{ rate }}</button>
+        <button id="buyBtn" class="btn btn-info offset-md-10" (click)="buyRate()">Buy {{ rate }}</button>
       </div>
     </div>
 
-    <br>
+  <div class="container"><br />
 
     <div class="row">
       <div class="card-deck">
