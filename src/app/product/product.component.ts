@@ -129,7 +129,9 @@ export class ProductComponent implements OnInit, OnChanges {
       // tslint:disable-next-line:radix
       this.product.quantite += parseInt(this.rateProd);
       this.revenu = this.product.revenu * this.product.quantite;
-      this.product.cout = this.product.cout * this.product.croissance ** this.product.quantite;
+      // this.product.cout = this.product.cout * this.product.croissance ** this.product.quantite;
+      this.calcCout();
+      
       // unlock les unlock
       /*for (const unlock of this.world.allunlocks.pallier) {
         if (this.product.id === unlock.idcible && this.product.quantite === unlock.seuil) {
@@ -161,7 +163,7 @@ export class ProductComponent implements OnInit, OnChanges {
     }
 
     if (this._rate === '1') {
-      res = (price * ((1 - Math.pow(this.product.croissance, 1)) / (1 - this.product.croissance)));
+      res = price * this.product.croissance ** this.product.quantite;
       this.currentcout = res;
     }
   }
