@@ -112,7 +112,11 @@ export class ProductComponent implements OnInit, OnChanges {
     setInterval(() => { this.calcScore(); }, 100);
     this.revenu = this.product.revenu;
     this.currentcout = this.product.cout;
-    this.temps = '0' + this.product.vitesse / 1000;
+    if (this.product.vitesse / 1000 < 10) {
+      this.temps = '0' + this.product.vitesse / 1000;
+    } else {
+      this.temps = this.product.vitesse / 1000;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
